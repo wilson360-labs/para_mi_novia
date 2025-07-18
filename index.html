@@ -1,37 +1,753 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/flowers.png" type="image/x-icon">
-    <title>FLORES</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Ti, Mi Amor Evelyn 💕</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 25%, #f8b500 50%, #ff6b9d 75%, #c44569 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .intro-screen {
+      text-align: center;
+      color: white;
+      max-width: 600px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-screen h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #ffb3d9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+      to { text-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
+    }
+
+    .intro-screen p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hearts {
+      font-size: 2rem;
+      margin: 20px 0;
+      animation: heartBeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .start-btn {
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      border: none;
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+      background: linear-gradient(45deg, #c44569, #ff6b9d);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      display: none;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .video-container:hover {
+      transform: translateY(-8px);
+      transition: transform 0.4s ease;
+      box-shadow: 0 30px 100px rgba(255, 107, 157, 0.3);
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      padding: 25px 30px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .video-container:hover .controls {
+      opacity: 1;
+    }
+
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .controls button {
+      background: linear-gradient(145deg, #ff6b9d, #c44569);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .controls button:hover {
+      transform: scale(1.15);
+      box-shadow: 0 12px 35px rgba(255, 107, 157, 0.6);
+      background: linear-gradient(145deg, #c44569, #ff6b9d);
+    }
+
+    .controls button:active {
+      transform: scale(1.05);
+    }
+
+    .progress-container {
+      flex: 1;
+      margin: 0 25px;
+      position: relative;
+    }
+
+    .progress {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress:hover {
+      height: 14px;
+      transition: height 0.3s ease;
+    }
+
+    .progress-filled {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #c44569, #f8b500);
+      width: 0%;
+      border-radius: 15px;
+      transition: width 0.2s ease;
+      box-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
+    }
+
+    .progress-buffer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      width: 0%;
+      border-radius: 15px;
+    }
+
+    .time-display {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      min-width: 100px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .volume-slider {
+      width: 100px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .volume-container:hover .volume-slider {
+      opacity: 1;
+    }
+
+    .volume-filled {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #c44569);
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 107, 157, 0.5);
+    }
+
+    .fullscreen-btn {
+      font-size: 24px !important;
+    }
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #ff6b9d;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff6b6b;
+      text-align: center;
+      display: none;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid #ff6b6b;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: linear-gradient(145deg, #ff6b9d, #c44569);
+      border: none;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 18px;
+      display: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+      z-index: 1000;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 107, 157, 0.6);
+    }
+
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 20px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10%, 90% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .intro-screen h1 {
+        font-size: 2.5rem;
+      }
+      
+      .intro-screen p {
+        font-size: 1.1rem;
+      }
+      
+      .controls button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      
+      .controls {
+        padding: 20px 25px;
+      }
+      
+      .volume-slider {
+        width: 80px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .intro-screen {
+        padding: 30px 20px;
+      }
+      
+      .intro-screen h1 {
+        font-size: 2rem;
+      }
+      
+      .controls button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+      
+      .controls-left, .controls-right {
+        gap: 15px;
+      }
+      
+      .progress-container {
+        margin: 0 15px;
+      }
+      
+      .volume-slider {
+        display: none;
+      }
+      
+      .back-btn {
+        top: 20px;
+        left: 20px;
+        padding: 12px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="greetings">
+  <div class="floating-hearts" id="floatingHearts"></div>
+  
+  <div class="intro-screen" id="introScreen">
+    <h1>Para Ti, Mi Gran Amor Evelyn</h1>
+    <div class="hearts">💕 💖 💕</div>
+    <p>He preparado algo especial para ti...<br>
+    Un video que viene directo del corazón<br>
+    porque eres la persona más importante de mi vida</p>
+    <div class="hearts">✨ 💝 ✨</div>
+    <button class="start-btn" onclick="startVideo()">Ver Video Aquí 💕</button>
+  </div>
 
-        <span>H</span>
-        <span>O</span>
-        <span>L</span>
-        <span>A</span>
+  <button class="back-btn" id="backBtn" onclick="goBack()">← Volver</button>
+
+  <div class="video-container" id="videoContainer">
+    <video id="video" preload="metadata">
+      <source src="https://dl.dropbox.com/scl/fi/1w1ug9ulfgl8y5pbfq24j/video.mp4?rlkey=u6po58hdmn3ytmgedcsjh1469&st=gf68cir2&dl=0" type="video/mp4">
+      Tu navegador no soporta el elemento de video.
+    </video>
+    
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      Cargando tu video especial...
     </div>
-    <div class="greetings">
-        <span>B</span>
-        <span>A</span>
-        <span>N</span>
-        <span>E</span>
-        <span>🩵</span>
-        <span>💛</span>
+    
+    <div class="error-message" id="errorMessage">
+      <h3>¡Ups! Algo salió mal</h3>
+      <p>No se pudo cargar el video. Por favor, revisa tu conexión e intenta nuevamente.</p>
     </div>
-    <div class="description">
-        <span>Tengo un regalo especial en esta fecha para ti!!</span>
+    
+    <div class="controls" id="controls">
+      <div class="controls-left">
+        <button id="playPause" title="Reproducir/Pausar">▶️</button>
+        <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress" id="progress">
+          <div class="progress-buffer" id="progressBuffer"></div>
+          <div class="progress-filled" id="progressFilled"></div>
+        </div>
+      </div>
+      
+      <div class="controls-right">
+        <div class="volume-container">
+          <button id="muteUnmute" title="Silenciar/Activar sonido">🔊</button>
+          <div class="volume-slider" id="volumeSlider">
+            <div class="volume-filled" id="volumeFilled"></div>
+          </div>
+        </div>
+        <button id="fullscreen" class="fullscreen-btn" title="Pantalla completa">⛶</button>
+      </div>
     </div>
-    <div class="button">
-        <button>
-            <a href="FLORES.html">Haga Clic</a>
-        </button>
+  </div>
+
+  <script>
+    // Elementos del DOM
+    const video = document.getElementById('video');
+    const playPauseBtn = document.getElementById('playPause');
+    const muteUnmuteBtn = document.getElementById('muteUnmute');
+    const fullscreenBtn = document.getElementById('fullscreen');
+    const progress = document.getElementById('progress');
+    const progressFilled = document.getElementById('progressFilled');
+    const progressBuffer = document.getElementById('progressBuffer');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeFilled = document.getElementById('volumeFilled');
+    const loading = document.getElementById('loading');
+    const errorMessage = document.getElementById('errorMessage');
+    const controls = document.getElementById('controls');
+    const introScreen = document.getElementById('introScreen');
+    const videoContainer = document.getElementById('videoContainer');
+    const backBtn = document.getElementById('backBtn');
+
+    // Crear corazones flotantes
+    function createFloatingHearts() {
+      const heartsContainer = document.getElementById('floatingHearts');
+      const hearts = ['💕', '💖', '💗', '💝', '💘', '💞', '💓', '💟', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+      
+      function addHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        heartsContainer.appendChild(heart);
         
-    </div>
+        setTimeout(() => {
+          heart.remove();
+        }, 7000);
+      }
+      
+      setInterval(addHeart, 800);
+    }
+
+    // Iniciar corazones flotantes
+    createFloatingHearts();
+
+    // Función para iniciar el video
+    function startVideo() {
+      introScreen.style.display = 'none';
+      videoContainer.style.display = 'block';
+      backBtn.style.display = 'block';
+      
+      // Auto-reproducir el video
+      setTimeout(() => {
+        video.play();
+        playPauseBtn.textContent = '⏸️';
+      }, 500);
+    }
+
+    // Función para volver al inicio
+    function goBack() {
+      videoContainer.style.display = 'none';
+      backBtn.style.display = 'none';
+      introScreen.style.display = 'block';
+      video.pause();
+      video.currentTime = 0;
+      playPauseBtn.textContent = '▶️';
+    }
+
+    // Función para formatear tiempo
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    // Función para actualizar el display de tiempo
+    function updateTimeDisplay() {
+      const current = video.currentTime || 0;
+      const duration = video.duration || 0;
+      timeDisplay.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+    }
+
+    // Función para actualizar el buffer
+    function updateBuffer() {
+      if (video.buffered.length > 0) {
+        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+        const duration = video.duration;
+        if (duration > 0) {
+          const bufferedPercent = (bufferedEnd / duration) * 100;
+          progressBuffer.style.width = bufferedPercent + '%';
+        }
+      }
+    }
+
+    // Event Listeners del video
+    video.addEventListener('loadstart', () => {
+      loading.style.display = 'block';
+      errorMessage.style.display = 'none';
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      loading.style.display = 'none';
+      updateTimeDisplay();
+    });
+
+    video.addEventListener('canplay', () => {
+      loading.style.display = 'none';
+    });
+
+    video.addEventListener('error', () => {
+      loading.style.display = 'none';
+      errorMessage.style.display = 'block';
+    });
+
+    video.addEventListener('timeupdate', () => {
+      if (video.duration) {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.width = percent + '%';
+      }
+      updateTimeDisplay();
+    });
+
+    video.addEventListener('progress', updateBuffer);
+
+    // Click en el video para reproducir/pausar
+    video.addEventListener('click', () => {
+      playPauseBtn.click();
+    });
+
+    // Botón play/pause
+    playPauseBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.textContent = '⏸️';
+        playPauseBtn.title = 'Pausar';
+      } else {
+        video.pause();
+        playPauseBtn.textContent = '▶️';
+        playPauseBtn.title = 'Reproducir';
+      }
+    });
+
+    // Botón mute/unmute
+    muteUnmuteBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (video.muted) {
+        muteUnmuteBtn.textContent = '🔇';
+        muteUnmuteBtn.title = 'Activar sonido';
+        volumeFilled.style.width = '0%';
+      } else {
+        muteUnmuteBtn.textContent = '🔊';
+        muteUnmuteBtn.title = 'Silenciar';
+        volumeFilled.style.width = (video.volume * 100) + '%';
+      }
+    });
+
+    // Botón pantalla completa
+    fullscreenBtn.addEventListener('click', () => {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
+      }
+    });
+
+    // Barra de progreso
+    progress.addEventListener('click', (e) => {
+      const clickX = e.offsetX;
+      const width = progress.offsetWidth;
+      const duration = video.duration;
+      if (duration) {
+        video.currentTime = (clickX / width) * duration;
+      }
+    });
+
+    // Control de volumen
+    volumeSlider.addEventListener('click', (e) => {
+      const clickX = e.offsetX;
+      const width = volumeSlider.offsetWidth;
+      const volume = clickX / width;
+      
+      video.volume = volume;
+      video.muted = false;
+      volumeFilled.style.width = (volume * 100) + '%';
+      
+      if (volume === 0) {
+        muteUnmuteBtn.textContent = '🔇';
+      } else {
+        muteUnmuteBtn.textContent = '🔊';
+      }
+    });
+
+    // Atajos de teclado
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement === document.body) {
+        switch(e.code) {
+          case 'Space':
+            e.preventDefault();
+            if (videoContainer.style.display === 'block') {
+              playPauseBtn.click();
+            }
+            break;
+          case 'KeyM':
+            if (videoContainer.style.display === 'block') {
+              muteUnmuteBtn.click();
+            }
+            break;
+          case 'KeyF':
+            if (videoContainer.style.display === 'block') {
+              fullscreenBtn.click();
+            }
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            if (videoContainer.style.display === 'block') {
+              video.currentTime -= 10;
+            }
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            if (videoContainer.style.display === 'block') {
+              video.currentTime += 10;
+            }
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            if (videoContainer.style.display === 'block') {
+              video.volume = Math.min(1, video.volume + 0.1);
+              volumeFilled.style.width = (video.volume * 100) + '%';
+            }
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            if (videoContainer.style.display === 'block') {
+              video.volume = Math.max(0, video.volume - 0.1);
+              volumeFilled.style.width = (video.volume * 100) + '%';
+            }
+            break;
+          case 'Escape':
+            if (videoContainer.style.display === 'block') {
+              goBack();
+            }
+            break;
+        }
+      }
+    });
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
+      // Configurar volumen inicial
+      video.volume = 1;
+      volumeFilled.style.width = '100%';
+      
+      // Actualizar display inicial
+      updateTimeDisplay();
+    });
+  </script>
 </body>
 </html>
